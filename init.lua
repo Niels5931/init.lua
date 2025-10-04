@@ -1,4 +1,5 @@
 local vim = vim
+package.path = vim.fn.stdpath("config") .. "/after/?.lua"
 local Plug = vim.fn['plug#']
 
 vim.call('plug#begin')
