@@ -1,4 +1,5 @@
 require("mason").setup {
+
 	ensure_installed = {
 		"lua_ls",
 		"pyright"
@@ -6,7 +7,7 @@ require("mason").setup {
 }
 
 require('nvim-treesitter.configs').setup {
-	ensure_installed = {"lua", "python", "javascript" },
+	ensure_installed = {"lua", "python", "verilog" },
 	highlight = { enable = true },
 	}
 
@@ -66,3 +67,33 @@ dracula.setup({
   -- end,
 })
 require("mini.pairs").setup()
+require("oil").setup()
+require('lualine').setup()
+vim.opt.termguicolors = true
+require("bufferline").setup{}
+require'nvim-web-devicons'.setup{}
+require("mason").setup()
+require("mason-lspconfig").setup()
+
+
+require("blink.cmp").setup{
+  keymap = { preset = 'enter' },
+  sources = {
+      default = { 'lsp', 'path', 'snippets', 'buffer' },
+  },
+  fuzzy = { implementation = "lua" },
+  opts = {
+    servers = {
+      lua_ls = {},
+      pyright = {}
+    }
+  },
+  config = function(_, opts)
+    local lspconfig = vim.lsp.config
+    for server, config in pairs(opts.servers) do
+      config.capabilities = require('blink.cmp').get_lsp_capabilities(config.capabilities)
+      lspconfig[server].setup(config)
+    end
+  end  
+}
+
