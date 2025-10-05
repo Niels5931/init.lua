@@ -66,7 +66,6 @@ dracula.setup({
   --   }
   -- end,
 })
-require("mini.pairs").setup()
 require("oil").setup()
 require('lualine').setup()
 vim.opt.termguicolors = true
@@ -75,7 +74,18 @@ require'nvim-web-devicons'.setup{}
 require("mason").setup()
 require("mason-lspconfig").setup()
 
-
+-- fix mini.pars such that 1'b0 in verilog is easier :)
+require('mini.pairs').setup ({
+  mappings = {
+    ["'"] = 
+    {
+       action = "closeopen",
+       pair = "''",
+       neigh_pattern = "[^%w\\][^%w]",
+       register = { cr = false },
+    }
+  }
+}) 
 require("blink.cmp").setup{
   keymap = { preset = 'enter' },
   sources = {
@@ -85,15 +95,17 @@ require("blink.cmp").setup{
   opts = {
     servers = {
       lua_ls = {},
-      pyright = {}
+      pyright = {},
+      clangd = {},
+      svlangserver = {},
     }
   },
   config = function(_, opts)
-    local lspconfig = vim.lsp.config
+    local lspconfig = vim.lsp.configs
     for server, config in pairs(opts.servers) do
       config.capabilities = require('blink.cmp').get_lsp_capabilities(config.capabilities)
       lspconfig[server].setup(config)
     end
-  end  
+  end
 }
 
