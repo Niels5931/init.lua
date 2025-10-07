@@ -109,3 +109,7 @@ require("blink.cmp").setup{
   end
 }
 
+-- setup mini
+require('mini.ai').setup()
+require('mini.operators').setup()
+require('mini.move').setup()

@@ -19,6 +19,9 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'akinsho/bufferline.nvim'
 Plug 'neovim/nvim-lspconfig'
 Plug 'Saghen/blink.cmp'
+Plug 'nvim-mini/mini.ai' 
+Plug 'nvim-mini/mini.move'
+Plug 'nvim-mini/mini.operators'
 vim.call('plug#end')
 
 
